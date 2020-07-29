@@ -5,6 +5,7 @@
     },
     "rules": {
       "@typescript-eslint/strict-boolean-expressions": "off",
+      "@typescript-eslint/member-delimiter-style": "off",
       "space-before-function-paren": ["error", "never"],
       "semi": [2, "always"]
   }
