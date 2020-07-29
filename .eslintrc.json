@@ -2,5 +2,9 @@
     "extends": "standard-with-typescript",
     "parserOptions": {
         "project": "./tsconfig.json"
-    }
+    },
+    "rules": {
+      "space-before-function-paren": ["error", "never"],
+      "semi": [2, "always"]
+  }
 }
