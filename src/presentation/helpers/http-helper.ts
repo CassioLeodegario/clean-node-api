@@ -1,6 +1,6 @@
-import { HttpReponse } from '../protocols/http';
+import { HttpResponse } from '../protocols/http';
 
-export const badRequest = (error): HttpReponse => ({
+export const badRequest = (error): HttpResponse => ({
   statusCode: 400,
   body: error
 });
