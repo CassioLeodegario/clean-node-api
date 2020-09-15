@@ -1,6 +1,6 @@
 import { Authentication } from '../../../domain/usecases/authentication';
 import { InvalidParamError, MissingParamError } from '../../errors';
-import { badRequest, serverError } from '../../helpers/http-helper';
+import { badRequest, serverError, unauthorized } from '../../helpers/http-helper';
 import { HttpRequest, HttpResponse, IController } from '../../protocols';
 import { EmailValidator } from '../signup/signup-protocols';
 
@@ -15,7 +15,7 @@ export class LoginController implements IController {
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
     try {
-      const requiredFields = ['name', 'email'];
+      const requiredFields = ['email', 'password'];
       for (const field of requiredFields) {
         if (!httpRequest.body[field]) {
           return badRequest(new MissingParamError(field));
@@ -26,7 +26,11 @@ export class LoginController implements IController {
       if (!isValid) {
         return badRequest(new InvalidParamError('email'));
       }
-      await this.authentication.auth(email, password);
+      const accessToken = await this.authentication.auth(email, password);
+      console.log('token', accessToken);
+      if (!accessToken) {
+        return unauthorized();
+      }
     } catch (error) {
       return serverError(error);
     }
