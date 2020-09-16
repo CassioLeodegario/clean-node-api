@@ -16,7 +16,7 @@ export class LoginController implements IController {
         return badRequest(error);
       }
       const { email, password } = httpRequest.body;
-      const accessToken = await this.authentication.auth(email, password);
+      const accessToken = await this.authentication.auth({ email, password });
       console.log('token', accessToken);
       if (!accessToken) {
         return unauthorized();
